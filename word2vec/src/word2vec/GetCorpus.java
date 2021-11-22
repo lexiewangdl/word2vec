@@ -8,17 +8,22 @@ public class GetCorpus {
 	static HashMap<String, Integer> dictionary = new HashMap<String, Integer>();
 	
 	//Pre-process line
-	String[] getSents(String line) {
+	public String[] getSents(String line) {
 		String [] sents = null;
 		if (line != null) {
 			line = line.replaceAll("(\\r|\\n|,|- )", ""); //Remove comma, dash, and other special characters //dash always comes with 2 spaces
 			line = line.toLowerCase();
 			sents = line.split("\\."); //Split line into sentences
+			for (int i=0;i<sents.length;i++) {
+				String sent = sents[i];
+				sent = sent.strip();
+				sents[i] = sent; //If a sentence begins with empty space, strip this space;
+			}
 		}
 		return sents;
 	}
 	
-	void updateDict(String[] sents) {
+	public void updateDict(String[] sents) {
 		int len = sents.length;
 		for (int i=0; i<len; i++) {
 			String sent = sents[i];
@@ -44,7 +49,7 @@ public class GetCorpus {
 		//Read the corpus from text file
 		BufferedReader reader;
 		try {
-			reader = new BufferedReader(new FileReader("corpus.txt"));
+			reader = new BufferedReader(new FileReader("small.txt"));
 			String line = reader.readLine();
 			while (line != null) {
 				System.out.println(line);
