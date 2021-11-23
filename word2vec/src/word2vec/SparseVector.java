@@ -3,6 +3,8 @@ package word2vec;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Random;
 
 public class SparseVector {
 
@@ -133,7 +135,7 @@ public class SparseVector {
 
 	public static void main(String[] args) {
 		GetCorpus gc = new GetCorpus();
-		SparseVector sv = new SparseVector();
+		SparseVector sv = new SparseVector(); 
 
 		String[] sents = gc.getSents(doc);
 		String[] sentes = sv.addStartAndEnd(sents);
@@ -155,7 +157,6 @@ public class SparseVector {
 		System.out.println(w2idx);
 		
 		double[][] coocurrence = sv.coocurrenceMatrix(words, w2idx, 2);
-		System.out.println("--------COOCURRENCE MATRIX--------");
 		System.out.println(Arrays.deepToString(coocurrence));
 		
 		double[] firstColumn = sv.getColumn(coocurrence, 0);
@@ -173,7 +174,23 @@ public class SparseVector {
 		 *  [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0], 
 		 *  [2.0, 3.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0]]
 		 */
-
+		
+		System.out.println("--------COMPUTE COSINE SIMILARITY--------");
+		CosineSimilarity cs = new CosineSimilarity();
+		Random r = new Random();
+		
+		List<String> keysAsArray = new ArrayList<String>(w2idx.keySet());
+		System.out.println(keysAsArray);
+		String t1 = keysAsArray.get(r.nextInt(keysAsArray.size()));
+		String t2 = keysAsArray.get(r.nextInt(keysAsArray.size()));
+		int t1idx = w2idx.get(t1);
+		int t2idx = w2idx.get(t2);
+		double[] t1Embedding = sv.getColumn(coocurrence, t1idx);
+		double[] t2Embedding = sv.getColumn(coocurrence, t2idx);
+		
+		double result = cs.cosineSim(t1Embedding, t2Embedding);
+		System.out.println(String.format("The cosine similarity between %s and %s is %f", t1, t2, result));
+		// test result: The cosine similarity between dog and chased is 0.621970
 	}
 
 }
