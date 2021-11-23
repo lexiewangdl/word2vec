@@ -119,6 +119,16 @@ public class SparseVector {
 
 		return coocurrence;
 	}
+	
+	// Gets single column from 2D Array 
+	public double[] getColumn(double[][] matrix, int targetIndex) {
+		double[] column = new double[matrix[0].length];
+		for (int i = 0; i < matrix.length; i++) {
+			column[i] = matrix[i][targetIndex];
+		}
+		return column;
+		
+	}
 
 
 	public static void main(String[] args) {
@@ -144,6 +154,9 @@ public class SparseVector {
 		
 		double[][] coocurrence = sv.coocurrenceMatrix(words, w2idx, 2);
 		System.out.println(Arrays.deepToString(coocurrence));
+		
+		double[] firstColumn = sv.getColumn(coocurrence, 0);
+		System.out.println(Arrays.toString(firstColumn));
 		
 		/*
 		 * [[0.0, 3.0, 3.0, 0.0, 1.0, 1.0, 3.0, 0.0, 1.0, 2.0], 
