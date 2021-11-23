@@ -146,13 +146,16 @@ public class SparseVector {
 
 		LinkedHashMap<String, Integer> vocab = sv.distinctWords(words);
 
+		System.out.println("--------GET DISTINCT WORDS--------");
 		System.out.println(vocab);
 		System.out.println(vocab.size()); // Number of distinct words in our corpus
 
+		System.out.println("--------WORD TO INDICES--------");
 		LinkedHashMap<String, Integer> w2idx = sv.wordToIndices(vocab);
 		System.out.println(w2idx);
 		
 		double[][] coocurrence = sv.coocurrenceMatrix(words, w2idx, 2);
+		System.out.println("--------COOCURRENCE MATRIX--------");
 		System.out.println(Arrays.deepToString(coocurrence));
 		
 		double[] firstColumn = sv.getColumn(coocurrence, 0);
