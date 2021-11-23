@@ -191,6 +191,13 @@ public class SparseVector {
 		double result = cs.cosineSim(t1Embedding, t2Embedding);
 		System.out.println(String.format("The cosine similarity between %s and %s is %f", t1, t2, result));
 		// test result: The cosine similarity between dog and chased is 0.621970
+		
+		PointwiseMutualInformation pmi = new PointwiseMutualInformation();
+		double NN = pmi.getN(coocurrence);
+		double pt = pmi.getPTarget(coocurrence, 2, NN);
+		System.out.println(NN + "---" + pt);
+
+
 	}
 
 }
