@@ -129,7 +129,21 @@ public class SparseVector {
 			column[i] = matrix[i][targetIndex];
 		}
 		return column;
+	}
+	
+	// All functions in one, get co-ocurrence matrix from doc
+	public double[][] getCoocurrence(String doc, int windowSize){
+		GetCorpus gc = new GetCorpus();
+		SparseVector sv = new SparseVector(); 
+
+		String[] sents = gc.getSents(doc);
+		String[] sentes = sv.addStartAndEnd(sents);
 		
+		ArrayList<String> words = sv.listWords(sentes);
+		LinkedHashMap<String, Integer> vocab = sv.distinctWords(words);
+		LinkedHashMap<String, Integer> w2idx = sv.wordToIndices(vocab);
+		double[][] coocurrence = sv.coocurrenceMatrix(words, w2idx, windowSize);
+		return coocurrence;
 	}
 
 
@@ -184,18 +198,15 @@ public class SparseVector {
 		String t1 = keysAsArray.get(r.nextInt(keysAsArray.size()));
 		String t2 = keysAsArray.get(r.nextInt(keysAsArray.size()));
 		int t1idx = w2idx.get(t1);
+		System.out.println(t1idx);
 		int t2idx = w2idx.get(t2);
+		System.out.println(t2idx);
 		double[] t1Embedding = sv.getColumn(coocurrence, t1idx);
 		double[] t2Embedding = sv.getColumn(coocurrence, t2idx);
 		
 		double result = cs.cosineSim(t1Embedding, t2Embedding);
 		System.out.println(String.format("The cosine similarity between %s and %s is %f", t1, t2, result));
 		// test result: The cosine similarity between dog and chased is 0.621970
-		
-		PointwiseMutualInformation pmi = new PointwiseMutualInformation();
-		double NN = pmi.getN(coocurrence);
-		double pt = pmi.getPTarget(coocurrence, 2, NN);
-		System.out.println(NN + "---" + pt);
 
 
 	}
