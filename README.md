@@ -6,7 +6,7 @@ The goal of this project is to practice basic Java skills by building a model th
 
 ## Authors
 Chenyue (Lexie) Wang
-@lexiewangdl
-Special thanks to @yuhere
+[@lexiewangdl](https://github.com/lexiewangdl)
+Special thanks to [@yuhere](https://github.com/yuhere)
 
 
