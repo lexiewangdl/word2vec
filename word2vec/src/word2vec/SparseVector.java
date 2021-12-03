@@ -207,7 +207,22 @@ public class SparseVector {
 		double result = cs.cosineSim(t1Embedding, t2Embedding);
 		System.out.println(String.format("The cosine similarity between %s and %s is %f", t1, t2, result));
 		// test result: The cosine similarity between dog and chased is 0.621970
-
+		
+		String t3 = keysAsArray.get(1);
+		String t4 = keysAsArray.get(1);
+		int t3idx = w2idx.get(t3);
+		int t4idx = w2idx.get(t4);
+		double[] t3Embedding = sv.getColumn(coocurrence, t3idx);
+		double[] t4Embedding = sv.getColumn(coocurrence, t4idx);
+		double result2 = cs.cosineSim(t3Embedding, t4Embedding);
+		System.out.println(String.format("The cosine similarity between %s and %s is %f", t3, t4, result2));
+		
+		int dogidx = w2idx.get("dog");
+		int aidx = w2idx.get("a");
+		double[] dogEmbedding = sv.getColumn(coocurrence, dogidx);
+		double[] aEmbedding = sv.getColumn(coocurrence, aidx);
+		double result3 = cs.cosineSim(dogEmbedding, aEmbedding);
+		System.out.println(String.format("The cosine similarity between %s and %s is %f", "dog", "a", result3));
 
 	}
 

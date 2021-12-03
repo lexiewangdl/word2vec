@@ -49,7 +49,7 @@ public class GetCorpus {
 		//Read the corpus from text file
 		BufferedReader reader;
 		try {
-			reader = new BufferedReader(new FileReader("small.txt"));
+			reader = new BufferedReader(new FileReader("corpus.txt"));
 			String line = reader.readLine();
 			while (line != null) {
 				System.out.println(line);
