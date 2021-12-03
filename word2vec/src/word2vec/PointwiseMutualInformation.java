@@ -50,14 +50,11 @@ public class PointwiseMutualInformation {
 	}
 
 	public double calculatePMI(double[][] coocurrence, int cIndex, int tIndex) {
-		PointwiseMutualInformation pmi = new PointwiseMutualInformation();
-		double N = pmi.getN(coocurrence);
-		double pt = pmi.getPTarget(coocurrence, tIndex, N);
-		double pc = pmi.getPContext(coocurrence, cIndex, N);
-		double jointPct = pmi.getPct(coocurrence, cIndex, tIndex, N);
-
+		double N = getN(coocurrence);
+		double pt = getPTarget(coocurrence, tIndex, N);
+		double pc = getPContext(coocurrence, cIndex, N);
+		double jointPct = getPct(coocurrence, cIndex, tIndex, N);
 		double valuePMI = Math.log(jointPct / (pt * pc));
-
 		return valuePMI;
 	}
 
